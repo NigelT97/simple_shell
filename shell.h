@@ -23,6 +23,24 @@ typedef struct alias_s
 	char *name;
 	struct alias_s *next;
 } t_alias;
+t_alias *aliases;
 
-/* abuilt c folder*/
+/* abuilt c folder */
+int alias_shellby(char **args, char __attribute__((__unused__)) **f_a);
+void printA(t_alias *alias);
+void alias_set(char *vn, char *v);
+char **alias_replace(char **args);
 
+/*built1 c folder */
+int (*get_b(char *command))(char **args, char **fv);
+int cd_shell(char **atgs, char __attribute__((__unused__)) **fv);
+int exit_shell(char **args, char **fv);
+int help_shell(char **args, char __attribute__((__unused__)) **fv);
+
+typedef struct t_builtn
+{
+	int (*f)(char **argv, char **fv);
+	char *name;
+} t_built;
+
+#endif

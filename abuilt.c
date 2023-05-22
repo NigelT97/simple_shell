@@ -5,13 +5,13 @@
  * @f_a: beginning of args
  * Return: -1 if error or 0 if success
  */
-int alias_shellby(char **args, char __attributes__((__unused)) **f_a)
+int alias_shellby(char **args, char __attribute__((__unused__)) **f_a)
 {
 	t_alias *tmp = aliases;
 	int i, ret_x = 0;
 	char *v;
 
-	if (!atgs[0])
+	if (!args[0])
 	{
 		while (tmp)
 		{
@@ -124,7 +124,7 @@ char **alias_replace(char **args)
 					args_freed(args, args);
 					return (NULL);
 				}
-				_strcpy(nv, tmp->v);
+				_strcpy(nv, tmp->value);
 				free(args[i]);
 				args[i] = nv;
 				i--;
