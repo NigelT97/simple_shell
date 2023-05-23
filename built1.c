@@ -11,7 +11,7 @@ int (*get_b(char *command))(char **args, char **fv)
 		{ "env", env_shell},
 		{ "setenv", setenv_shell},
 		{ "unsetenv", unsetenv_shell},
-		{ "alias", alias_shell},
+		{ "alias", alias_shellby},
 		{ "cd", cd_shell},
 		{ "help", help_shell},
 		{NULL, NULL}
@@ -31,9 +31,9 @@ int (*get_b(char *command))(char **args, char **fv)
  * @fv: pointer
  * Return: outcome
  */
-int cd_shell(char **atgs, char __attribute__((__unused__)) **fv)
+int cd_shell(char **args, char __attribute__((__unused__)) **fv)
 {
-	char **di, *nl = "\n", char *opwd = NULL, *pwd = NULL;
+	char **di, *nl = "\n", *opwd = NULL, *pwd = NULL;
 	struct stat dir;
 
 	opwd = getcwd(opwd, 0);
@@ -70,7 +70,7 @@ int cd_shell(char **atgs, char __attribute__((__unused__)) **fv)
 		if (_getenv("HOME") != NULL)
 			chdir(*(_getenv("HOME")) + 5);
 	}
-	pwd = getcwd(pwd, o);
+	pwd = getcwd(pwd, 0);
 	if (!pwd)
 		return (-1);
 	di = malloc(sizeof(char *) * 2);

@@ -36,11 +36,29 @@ int (*get_b(char *command))(char **args, char **fv);
 int cd_shell(char **atgs, char __attribute__((__unused__)) **fv);
 int exit_shell(char **args, char **fv);
 int help_shell(char **args, char __attribute__((__unused__)) **fv);
+/*built2 c folder */
+int env_shell(char **args, char __attribute__((__unused__)) **fv);
+int unsetenv_shell(char **args, char __attribute__((__unused__)) **fv);
+int setenv_shell(char **args, char __attribute__((__unused__)) **fv);
 
 typedef struct t_builtn
 {
 	int (*f)(char **argv, char **fv);
 	char *name;
 } t_built;
+
+extern char **environ;
+
+/*help c folders */
+void help_all(void);
+void help_alias(void);
+void help_cd(void);
+void help_exit(void);
+void help_help(void);
+void help_env(void);
+void help_setenv(void);
+void help_unsetenv(void);
+
+char *name;
 
 #endif
