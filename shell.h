@@ -61,4 +61,9 @@ void help_unsetenv(void);
 
 char *name;
 
+/*env c folders*/
+char **_copyenv(void);
+void free_env(void);
+char **_getenv(const char *var);
+
 #endif
