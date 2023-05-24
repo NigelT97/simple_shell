@@ -59,11 +59,11 @@ int execute(char **args, char **fv)
  */
 void handler_signal(int s)
 {
-	char *np = "\n=>$ ";
+	char *np = "\n$ ";
 
 	(void)s;
 	signal(SIGINT, handler_signal);
-	write(STDIN_FILENO, np, 5);
+	write(STDIN_FILENO, np, 3);
 }
 /**
  * main - UNIX programme for starting up the programme
@@ -74,7 +74,7 @@ void handler_signal(int s)
 int main(int argc, char *argv[])
 {
 	int rt = 0, rtn, *exert = &rtn;
-	char *np = "=>$ ", *nl = "\n";
+	char *np = "$ ", *nl = "\n";
 
 	name = argv[0];
 	hist = 1;
@@ -104,7 +104,7 @@ int main(int argc, char *argv[])
 
 	while (1)
 	{
-		write(STDOUT_FILENO, np, 4);
+		write(STDOUT_FILENO, np, 2);
 		rt = handle_args(exert);
 		if (rt == END_OF_FILE || rt == EXIT)
 		{
