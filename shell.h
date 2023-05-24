@@ -11,6 +11,9 @@
 #include <stdio.h>
 #include <sys/wait.h>
 
+#define END_OF_FILE -2
+#define EXIT -3
+
 /**
  * struct alias_s - new struct aliases
  * @name: names
@@ -65,5 +68,20 @@ char *name;
 char **_copyenv(void);
 void free_env(void);
 char **_getenv(const char *var);
+
+/*error c folders*/
+int create_error(char **args, int error_value);
+int num_len(int n);
+char *_itao(int n);
+char *error_126(char **args);
+char *error_127(char **args);
+char *error_env(char **args);
+char *error_1(char **args);
+char *error_2_exit(char **args);
+char *error_2_cd(char **args);
+char *error_2_syntax(char **args);
+
+int hist;
+
 
 #endif
