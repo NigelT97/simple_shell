@@ -1,23 +1,23 @@
 #include "shell.h"
 
-alias_t *add_alias_end(alias_t **head, char *name, char *value);
-void free_alias_list(alias_t *head);
-list_t *add_node_end(list_t **head, char *dir);
-void free_list(list_t *head);
+t_alias *add_alias_end(t_alias **head, char *name, char *value);
+void free_alias_list(t_alias *head);
+t_list *add_node_end(t_list **head, char *dir);
+void free_list(t_list *head);
 
 /**
- * add_alias_end - Adds a node to the end of a alias_t linked list.
- * @head: A pointer to the head of the list_t list.
+ * add_alias_end - Adds a node to the end of a t_alias linked list.
+ * @head: A pointer to the head of the t_list list.
  * @name: The name of the new alias to be added.
  * @value: The value of the new alias to be added.
  *
  * Return: If an error occurs - NULL.
  *         Otherwise - a pointer to the new node.
  */
-alias_t *add_alias_end(alias_t **head, char *name, char *value)
+t_alias *add_alias_end(t_alias **head, char *name, char *value)
 {
-	alias_t *new_node = malloc(sizeof(alias_t));
-	alias_t *last;
+	t_alias *new_node = malloc(sizeof(t_alias));
+	t_alias *last;
 
 	if (!new_node)
 		return (NULL);
@@ -46,17 +46,17 @@ alias_t *add_alias_end(alias_t **head, char *name, char *value)
 }
 
 /**
- * add_node_end - Adds a node to the end of a list_t linked list.
- * @head: A pointer to the head of the list_t list.
+ * add_node_end - Adds a node to the end of a t_list linked list.
+ * @head: A pointer to the head of the t_list list.
  * @dir: The directory path for the new node to contain.
  *
  * Return: If an error occurs - NULL.
  *         Otherwise - a pointer to the new node.
  */
-list_t *add_node_end(list_t **head, char *dir)
+t_list *add_node_end(t_list **head, char *dir)
 {
-	list_t *new_node = malloc(sizeof(list_t));
-	list_t *last;
+	t_list *new_node = malloc(sizeof(t_list));
+	t_list *last;
 
 	if (!new_node)
 		return (NULL);
@@ -81,9 +81,9 @@ list_t *add_node_end(list_t **head, char *dir)
  * free_alias_list - Frees a alias_t linked list.
  * @head: THe head of the alias_t list.
  */
-void free_alias_list(alias_t *head)
+void free_alias_list(t_alias *head)
 {
-	alias_t *next;
+	t_alias *next;
 
 	while (head)
 	{
@@ -96,12 +96,12 @@ void free_alias_list(alias_t *head)
 }
 
 /**
- * free_list - Frees a list_t linked list.
- * @head: The head of the list_t list.
+ * free_list - Frees a t_list linked list.
+ * @head: The head of the t_list list.
  */
-void free_list(list_t *head)
+void free_list(t_list *head)
 {
-	list_t *next;
+	t_list *next;
 
 	while (head)
 	{
