@@ -73,7 +73,7 @@ int setenv_shell(char **args, char __attribute__((__unused__)) **fv)
 	nv = malloc(_strlen(args[0]) + 1 + _strlen(args[1]) + 1);
 	if (!nv)
 		return (create_error(args, -1));
-	-strcpy(nv, args[0]);
+	_strcpy(nv, args[0]);
 	_strcat(nv, "=");
 	_strcat(nv, args[1]);
 	envV = _getenv(args[0]);

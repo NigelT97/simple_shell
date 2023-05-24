@@ -24,7 +24,7 @@ void help_all(void)
 	write(STDOUT_FILENO, msg, _strlen(msg));
 }
 /**
- * help_help - display 
+ * help_help - display
  */
 void help_help(void)
 {
@@ -33,7 +33,7 @@ void help_help(void)
 	write(STDOUT_FILENO, msg, _strlen(msg));
 }
 /**
- * help_cd
+ * help_cd - display
  */
 void help_cd(void)
 {
@@ -44,7 +44,7 @@ void help_cd(void)
 	write(STDOUT_FILENO, msg, _strlen(msg));
 }
 /**
- * help_exit
+ * help_exit - display
  */
 void help_exit(void)
 {

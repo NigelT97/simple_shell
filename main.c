@@ -1,9 +1,9 @@
 #include "shell.h"
 /**
- * execute - opens up child process
- * @args: array
- * @fv: pointers
- * Return: result
+ * execute - opens up child process to the parent prog
+ * @args: array accepted into prog
+ * @fv: pointers to the processor
+ * Return: result of the outcme in in
  */
 int execute(char **args, char **fv)
 {
@@ -35,7 +35,7 @@ int execute(char **args, char **fv)
 		}
 		if (childp == 0)
 		{
-			excve(cmds, args, environ);
+			execve(cmds, args, environ);
 			if (errno == EACCES)
 				rt = (create_error(args, 126));
 			free_env();
@@ -46,7 +46,7 @@ int execute(char **args, char **fv)
 		else
 		{
 			wait(&sp);
-			rt = WEXISTATUS(sp);
+			rt = WEXITSTATUS(sp);
 		}
 	}
 	if (flag)
@@ -66,10 +66,10 @@ void handler_signal(int s)
 	write(STDIN_FILENO, np, 5);
 }
 /**
- * main - UNIX programme
- * @argc: number of arguments
- * @argv: array
- * Return: result;
+ * main - UNIX programme for starting up the programme
+ * @argc: number of arguments supplied to the program
+ * @argv: array of pointers to the prog
+ * Return: result of the value exucuted
  */
 int main(int argc, char *argv[])
 {
@@ -85,6 +85,7 @@ int main(int argc, char *argv[])
 	environ = _copyenv();
 	if (!environ)
 		exit(-100);
+
 	if (argc != 1)
 	{
 		rt = proc_file_commands(argv[1], exert);
@@ -92,7 +93,7 @@ int main(int argc, char *argv[])
 		free_alias_list(aliases);
 		return (*exert);
 	}
-	if (!satty(STDIN_FILENO))
+	if (!isatty(STDIN_FILENO))
 	{
 		while (rt != END_OF_FILE && rt != EXIT)
 			rt = handle_args(exert);
@@ -100,20 +101,23 @@ int main(int argc, char *argv[])
 		free_alias_list(aliases);
 		return (*exert);
 	}
+
 	while (1)
 	{
 		write(STDOUT_FILENO, np, 4);
 		rt = handle_args(exert);
 		if (rt == END_OF_FILE || rt == EXIT)
 		{
-			if (rt = END_OF_FILE)
+			if (rt == END_OF_FILE)
 				write(STDOUT_FILENO, nl, 1);
 			free_env();
 			free_alias_list(aliases);
-			exit(exert);
+			exit(*exert);
 		}
 	}
+
 	free_env();
 	free_alias_list(aliases);
+	exit(*exert);
 	return (*exert);
 }

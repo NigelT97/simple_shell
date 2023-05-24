@@ -15,7 +15,7 @@ int create_error(char **args, int error_value)
 			err = error_env(args);
 			break;
 		case 1:
-			err = error1(args);
+			err = error_1(args);
 			break;
 		case 2:
 			if (*(args[0]) == 'e')
@@ -35,7 +35,7 @@ int create_error(char **args, int error_value)
 	write(STDERR_FILENO, err, _strlen(err));
 	if (err)
 		free(err);
-	return (err);
+	return (error_value);
 }
 /**
  * num_len - counts
@@ -68,7 +68,7 @@ int num_len(int n)
  * @n: integer
  * Return: result
  */
-char *_itao(int n)
+char *_itoa(int n)
 {
 	char *buffer;
 	unsigned int n1;
@@ -107,7 +107,7 @@ char *error_126(char **args)
 	char *err, *strhist;
 	int ln;
 
-	strhist = _itao(hist);
+	strhist = _itoa(hist);
 	if (!strhist)
 		return (NULL);
 	ln = _strlen(name) + _strlen(strhist) + _strlen(args[0]) + 24;
@@ -135,7 +135,7 @@ char *error_127(char **args)
 	char *err, *strhist;
 	int ln;
 	
-	strhist = _itao(hist);
+	strhist = _itoa(hist);
 	if (!strhist)
 		return (NULL);
 	ln = _strlen(name) + _strlen(strhist) + _strlen(args[0]) + 16;

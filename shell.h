@@ -1,7 +1,7 @@
 #ifndef SHELL_H
 #define SHELL_H
 
-*
+/**
 * File: shell.h
 * Auth: Calvin Kudiwapfava
 *       Nigel Masiyazi-Ngorima
@@ -52,8 +52,8 @@ int setenv_shell(char **args, char __attribute__((__unused__)) **fv);
 
 typedef struct t_builtn
 {
-	int (*f)(char **argv, char **fv);
 	char *name;
+	int (*f)(char **argv, char **fv);
 } t_built;
 
 extern char **environ;
@@ -78,7 +78,7 @@ char **_getenv(const char *var);
 /*error c folders*/
 int create_error(char **args, int error_value);
 int num_len(int n);
-char *_itao(int n);
+char *_itoa(int n);
 char *error_126(char **args);
 char *error_127(char **args);
 char *error_env(char **args);
@@ -100,7 +100,7 @@ char *_strcat(char *dest, const char *src);
 int _strspn(char *s, char *accept);
 
 
-/* Builtins 
+/* Builtins */
 int (*get_builtin(char *command))(char **args, char **front);
 int shellby_exit(char **args, char **front);
 int shellby_env(char **args, char __attribute__((__unused__)) **front);
@@ -108,13 +108,19 @@ int shellby_setenv(char **args, char __attribute__((__unused__)) **front);
 int shellby_unsetenv(char **args, char __attribute__((__unused__)) **front);
 int shellby_cd(char **args, char __attribute__((__unused__)) **front);
 int shellby_alias(char **args, char __attribute__((__unused__)) **front);
-int shellby_help(char **args, char __attribute__((__unused__)) **front); */
+int shellby_help(char **args, char __attribute__((__unused__)) **front);
+
+typedef struct list_s
+{
+	char *dir;
+	struct list_s *next;
+} list_t;
 
 /* Linkedlist */
 t_alias *add_alias_end(t_alias **head, char *name, char *value);
 void free_alias_list(t_alias *head);
-t_list *add_node_end(t_list **head, char *dir);
-void free_list(t_list *head);
+list_t *add_node_end(list_t **head, char *dir);
+void free_list(list_t *head);
 
 void help_unsetenv(void);
 void help_history(void);
@@ -126,5 +132,32 @@ void help_setenv(void);
 void help_cd(void);
 void help_exit(void);
 
+void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size);
+void assign_lineptr(char **lineptr, size_t *n, char *buffer, size_t b);
+ssize_t _getline(char **lineptr, size_t *n, FILE *stream);
 int proc_file_commands(char *file_path, int *exe_ret);
+
+/*files missed*/
+char *get_args(char *line, int *exe_ret);
+int call_args(char **args, char **front, int *exe_ret);
+int run_args(char **args, char **front, int *exe_ret);
+int handle_args(int *exe_ret);
+int check_args(char **args);
+void free_args(char **args, char **front);
+char *get_pid(void);
+char *get_env_value(char *beginning, int len);
+void variable_replacement(char **args, int *exe_ret);
+int token_len(char *str, char *delim);
+int count_tokens(char *str, char *delim);
+char **_strtok(char *line, char *delim);
+void handle_line(char **line, ssize_t read);
+ssize_t get_new_len(char *line);
+void logical_ops(char *line, ssize_t *new_len);
+char *get_location(char *command);
+char *fill_path_dir(char *path);
+list_t *get_path_dir(char *path);
+int execute(char **args, char **front);
+char **replace_aliases(char **args);
+int cant_open(char *file_path);
+
 #endif

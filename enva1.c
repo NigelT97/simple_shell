@@ -11,7 +11,7 @@ char **_getenv(const char *var)
 	ln = _strlen(var);
 	for (x = 0; environ[x]; x++)
 	{
-		if (_strcmp(var, environ[x], ln) == 0)
+		if (_strncmp(var, environ[x], ln) == 0)
 			return (&environ[x]);
 	}
 	return (NULL);

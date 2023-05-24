@@ -36,7 +36,7 @@ int alias_shellby(char **args, char __attribute__((__unused__)) **f_a)
 				tmp = tmp->next;
 			}
 			if(!tmp)
-				ret_x = cr_error(args + i, 1);
+				ret_x = create_error(args + i, 1);
 		}
 		else
 			alias_set(args[i], v);
@@ -82,7 +82,7 @@ void alias_set(char *vn, char *v)
 	for (i = 0, j = 0; v[i]; i++)
 	{
 		if (v[j] != '\'' && v[j] != '"')
-			nv[j++] = v[j];
+			nv[j++] = v[i];
 	}
 	nv[j] = '\0';
 	while (tmp)
@@ -109,7 +109,7 @@ char **alias_replace(char **args)
 	int i;
 	char *nv;
 
-	if (_strcmp(args[i], tmp->name) == 0)
+	if (_strcmp(args[0], "alias") == 0)
 		return (args);
 	for (i = 0; args[i]; i++)
 	{
@@ -121,7 +121,7 @@ char **alias_replace(char **args)
 				nv = malloc(sizeof(char) * (_strlen(tmp->value) + 1));
 				if (!nv)
 				{
-					args_freed(args, args);
+					free_args(args, args);
 					return (NULL);
 				}
 				_strcpy(nv, tmp->value);

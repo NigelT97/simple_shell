@@ -7,7 +7,7 @@
 int (*get_b(char *command))(char **args, char **fv)
 {
 	t_built fun[] = {
-		{ "exit", exit_shell },
+		{ "exit", exit_shell},
 		{ "env", env_shell},
 		{ "setenv", setenv_shell},
 		{ "unsetenv", unsetenv_shell},
@@ -33,7 +33,8 @@ int (*get_b(char *command))(char **args, char **fv)
  */
 int cd_shell(char **args, char __attribute__((__unused__)) **fv)
 {
-	char **di, *nl = "\n", *opwd = NULL, *pwd = NULL;
+	char **di, *nl = "\n";
+	char *opwd = NULL, *pwd = NULL;
 	struct stat dir;
 
 	opwd = getcwd(opwd, 0);
@@ -43,7 +44,8 @@ int cd_shell(char **args, char __attribute__((__unused__)) **fv)
 	{
 		if (*(args[0]) == '-' || _strcmp(args[0], "--") == 0)
 		{
-			if ((args[0][1] == '-' && args[0][2] == '\0') || args[0][1] == '\0')
+			if ((args[0][1] == '-' && args[0][2] == '\0') ||
+					args[0][1] == '\0')
 			{
 				if (_getenv("OLDPWD") != NULL)
 					(chdir(*_getenv("OLDPWD") + 7));
@@ -56,7 +58,8 @@ int cd_shell(char **args, char __attribute__((__unused__)) **fv)
 		}
 		else
 		{
-			if (stat(args[0], &dir) == 0 && S_ISDIR(dir.st_mode) && ((dir.st_mode & S_IXUSR) != 0))
+			if (stat(args[0], &dir) == 0 && S_ISDIR(dir.st_mode)
+					&& ((dir.st_mode & S_IXUSR) != 0))
 				chdir(args[0]);
 			else
 			{
@@ -76,6 +79,7 @@ int cd_shell(char **args, char __attribute__((__unused__)) **fv)
 	di = malloc(sizeof(char *) * 2);
 	if (!di)
 		return (-1);
+
 	di[0] = "OLDPWD";
 	di[1] = opwd;
 	if (setenv_shell(di, di) == -1)
@@ -84,7 +88,7 @@ int cd_shell(char **args, char __attribute__((__unused__)) **fv)
 	di[1] = pwd;
 	if (setenv_shell(di, di) == -1)
 		return (-1);
-	if (args[0] && args[0][0] == '-' && args [0][1] != '-')
+	if (args[0] && args[0][0] == '-' && args[0][1] != '-')
 	{
 		write(STDOUT_FILENO, pwd, _strlen(pwd));
 		write(STDOUT_FILENO, nl, 1);
@@ -98,6 +102,7 @@ int cd_shell(char **args, char __attribute__((__unused__)) **fv)
  * exit_shell - terminate programme
  * @args: arguments
  * @fv: pointer
+ * Return:result
  */
 int exit_shell(char **args, char **fv)
 {
@@ -124,7 +129,7 @@ int exit_shell(char **args, char **fv)
 	if (nm > max - 1)
 		return (create_error(--args, 2));
 	args -= 1;
-	args_freed(args, fv);
+	free_args(args, fv);
 	free_env();
 	free_alias_list(aliases);
 	exit(nm);
