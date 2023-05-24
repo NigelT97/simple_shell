@@ -8,7 +8,7 @@
 int execute(char **args, char **fv)
 {
 	pid_t childp;
-	int flag = 0; rt = 0; sp;
+	int flag = 0, rt = 0, sp;
 	char *cmds = args[0];
 
 	if (cmds[0] != '/' && cmds[0] != '.')
@@ -16,7 +16,7 @@ int execute(char **args, char **fv)
 		flag = 1;
 		cmds = get_location(cmds);
 	}
-	if (!cmds || (access(cmds, F _OK) == -1))
+	if (!cmds || (access(cmds, F_OK) == -1))
 	{
 		if (errno == EACCES)
 			rt = (create_error(args, 126));
@@ -73,7 +73,7 @@ void handler_signal(int s)
  */
 int main(int argc, char *argv[])
 {
-	int rt = 0, rtn, exert = &rtn;
+	int rt = 0, rtn, *exert = &rtn;
 	char *np = "=>$ ", *nl = "\n";
 
 	name = argv[0];
